@@ -1,0 +1,24 @@
+﻿@model Phonebook.Models.NewRecord
+
+@{
+    ViewBag.Title = "Create new record";
+}
+
+<h2>CreateNew</h2>
+@using (Html.BeginForm("CreateNew", "Home", new { @class = "form-group" }, FormMethod.Post))
+{
+    <p>
+        First name: @Html.TextBoxFor(m => m.firstName, new { @class = "form-control", @placeholder = "Name", @name = "firstName" })
+        @Html.ValidationMessageFor(m => m.firstName)<br />
+        Last Name: @Html.TextBoxFor(m => m.lastName, new { @class = "form-control", @placeholder = "Surname", @name = "lastName" })
+        @Html.ValidationMessageFor(m => m.lastName)<br />
+        Birth year: @Html.TextBoxFor(m => m.birthYear, new { @class = "form-control", @placeholder = "Birth year", @name = "birthYear" })
+        @Html.ValidationMessageFor(m => m.birthYear)<br />
+        Phone Number: @Html.TextBoxFor(m => m.phoneNum, new { @class = "form-control", @placeholder = "Phone number", @name = "phoneNum" })
+        @Html.ValidationMessageFor(m => m.phoneNum)<br />
+        <input type="submit" value="Create new record" class="btn btn-default" />
+    </p>
+}
+@*//ViewBag for error message if new record phone num is not unique*@
+<p>@ViewBag.CheckMessage</p>
+@Html.ActionLink("back to list", "Index")

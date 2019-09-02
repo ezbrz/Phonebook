@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Phonebook.Models.Records>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+
+<div>
+    <h2>Phonebook</h2>
+    @*//form for search pattern*@
+    @using (Html.BeginForm("Index", "Home", new { ViewBag.searchPattern, ViewBag.IsDecendig, ViewBag.property }, FormMethod.Get))
+    {
+        <p>
+            Search: @Html.TextBox("searchPattern", null, new { @class = "form-control", @placeholder = "Lastname, First name or phone number" })
+            <input type="submit" value="Filter" class="btn btn-default" />
+        </p>
+
+    }
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.ActionLink("Last name", "Index", new { searchPattern = ViewBag.searchPattern, IsDecendig = ViewBag.IsDecendig, property = "name" })
+            </th>
+            <th>
+                @Html.ActionLink("Birth year", "Index", new { searchPattern = ViewBag.searchPattern, IsDecendig = ViewBag.IsDecendig, property = "year" })
+            </th>
+            <th>
+                Phone number
+            </th>
+            <th>
+                Delete record
+            </th>
+        </tr>
+        @*//inject records for table*@
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.firstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.birthYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phoneNum)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { phoneNum = item.phoneNum })
+                </td>
+            </tr>
+        }
+    </table>
+    @using (Html.BeginForm("CreateNew", "Home", FormMethod.Get))
+    {
+        <p><input type="submit" value="Create new" class="btn btn-default" /></p>
+    }
+
+
+</div>
